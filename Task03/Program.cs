@@ -104,13 +104,13 @@ namespace Task03
                 if (word == books[i].GetTitle())
                 {
                     flag++;
-                    if (books[i].GetAvb()==true)
+                    if (books[i].GetAvb())
                     {
                         
                         books[i].SetAvb(false);
                         Console.WriteLine($"{books[i].GetTitle()} is borrowed"); // done borrwing
                     }
-                    else if(books[i].GetAvb()==false)
+                    else 
                     {
                         Console.WriteLine($"{books[i].GetTitle()} is already borrowed"); // book already borrowed
                     }
@@ -137,14 +137,16 @@ namespace Task03
                 {
                     flag++;
 
-                    if (books[i].GetAvb() == false)
-                    {
-                        books[i].SetAvb(true);
-                        Console.WriteLine($"{books[i].GetTitle()} is Returned");
-                    }
-                    else if (books[i].GetAvb()==true)
+                    if (books[i].GetAvb())
                     {
                         Console.WriteLine($"{books[i].GetTitle()} is not borrowed, you can borrow it now..");
+                    }
+                    else
+                    {
+
+                        books[i].SetAvb(true);
+                        Console.WriteLine($"{books[i].GetTitle()} is Returned");
+                        
                     }
 
                 }

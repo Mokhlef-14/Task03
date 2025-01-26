@@ -1,61 +1,22 @@
-﻿using Task03;
+using Task03;
 
 namespace Task03
 {
     class Book
     {
-        string Title;
-        string Author;
-        string ISBN;
-        bool avb;
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string ISBN { get; set; }
+        public bool Avb { get; set; }
 
         public Book(string Title, string Author, string ISBN, bool avb = true)
         {
             this.Title = Title;
             this.Author = Author;
             this.ISBN = ISBN;
-            this.avb = avb;
+            this.Avb = Avb;
         }
 
-        public string GetTitle()         //Getter for title
-        {
-            return this.Title;
-        }
-
-        public void SetTitle(string title)     // setter for title
-        {
-            this.Title = title;
-        }
-
-        public string GetAuthor()  // getter for author
-        {
-            return Author;
-        }
-
-        public void SetAuthor(string author) // setter for author
-        {
-            this.Author = author;
-        }
-
-        public string GetISBN()  // getter for author
-        {
-            return ISBN;
-        }
-
-        public void SetISBN(string ISBN) // setter for author
-        {
-            this.ISBN = ISBN;
-        }
-
-        public bool GetAvb()  // getter for avalability
-        {
-            return avb;
-        }
-
-        public void SetAvb(bool avb) // setter for avalability
-        {
-            this.avb = avb;
-        }
     }
 
     class Library
@@ -77,11 +38,11 @@ namespace Task03
             bool found = false;
             for (int i = 0; i < books.Count; i++)
             {
-                if (word == books[i].GetTitle())
+                if (books[i].Title.Contains(word))
                 {
 
                     found = true;
-                    Console.WriteLine("book founded");
+                    Console.WriteLine($"{word} founded");
                     return true;
 
                     
@@ -89,7 +50,7 @@ namespace Task03
             }
             if (!found)
             {
-                Console.WriteLine("book not founded");
+                Console.WriteLine($"{word} not founded");
             }
 
             return false;
@@ -97,28 +58,28 @@ namespace Task03
 
         public void BorrowBook(string word) //method th borrow a book
         {
-            int flag = 0;
+            
             for (int i = 0; i < books.Count; i++)
             {
 
-                if (word == books[i].GetTitle())
+                if (word == books[i].Title)
                 {
-                    flag++;
-                    if (books[i].GetAvb())
+                    
+                    if (books[i].Avb==true)
                     {
                         
-                        books[i].SetAvb(false);
-                        Console.WriteLine($"{books[i].GetTitle()} is borrowed"); // done borrwing
+                        books[i].Avb=false;
+                        Console.WriteLine($"{books[i].Title} is borrowed"); // done borrwing
                     }
-                    else 
+                    else if(books[i].Avb==false)
                     {
-                        Console.WriteLine($"{books[i].GetTitle()} is already borrowed"); // book already borrowed
+                        Console.WriteLine($"{books[i].Title} is already borrowed"); // book already borrowed
                     }
                 }
                 
   
             }
-            if (flag == 0)  // if there is no book with the entered title to borrow
+            if (!SearchBook(word))  // if there is no book with the entered title to borrow
             {
                 Console.WriteLine($"{word} we don't have this book in our collection to borrow");
             }
@@ -127,35 +88,33 @@ namespace Task03
 
         public void ReturnBook(string word) // method to return a book
         {
-            int flag = 0;
+            
             for (int i = 0; i < books.Count; i++)
             {
 
 
 
-                if (word == books[i].GetTitle())
+                if (word == books[i].Title)
                 {
-                    flag++;
+                    
 
-                    if (books[i].GetAvb())
+                    if (books[i].Avb == false)
                     {
-                        Console.WriteLine($"{books[i].GetTitle()} is not borrowed, you can borrow it now..");
+                        books[i].Avb=true;
+                        Console.WriteLine($"{books[i].Title} is Returned");
                     }
-                    else
+                    else if (books[i].Avb==true)
                     {
-
-                        books[i].SetAvb(true);
-                        Console.WriteLine($"{books[i].GetTitle()} is Returned");
-                        
+                        Console.WriteLine($"{books[i].Title} is not borrowed, you can borrow it now..");
                     }
 
                 }
                
             }
 
-            if (flag == 0)  // if there is no book with the entered title to return
+            if (!SearchBook(word))  // if there is no book with the entered title to return
             {
-                Console.WriteLine($"{word} we don't have this book in our collection");
+                Console.WriteLine($"{word} we don't have this book in our collection, may be you are worng with our library");
             }
 
 
@@ -174,6 +133,9 @@ namespace Task03
         library.AddBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565"));
         library.AddBook(new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084"));
         library.AddBook(new Book("1984", "George Orwell", "9780451524935"));
+
+        Console.WriteLine(library.SearchBook("Gatsby"));
+
 
         // Searching and borrowing books
         Console.WriteLine("Searching and borrowing books...");

@@ -151,29 +151,8 @@ namespace Task03
         Console.ReadLine();
     }
 
-    /* static void Main(string[] args)
-     {
 
-            library myLibrary = new library();
-
-         // Add books to the library
-         myLibrary.AddBook(new book("1919", "Ahmed Morad", "00", true));
-         myLibrary.AddBook(new book("Guantanamo", "Youssef Zidan", "01", true));
-         myLibrary.AddBook(new book("Blue Elephant", "Ahmed Morad", "02", false));
-
-         myLibrary.SearchBook("1929");
-         myLibrary.BorrowBook("1929");
-         myLibrary.ReturnBook("1919");
-
-
-
-
-
-
-
-
-
- }*/
+        
 }
 
 
